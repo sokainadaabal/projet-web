@@ -18,7 +18,6 @@ model User {
   password String? 
   role   Role @default(AUTHOR)
   posts Post[]
-  token String
   @@unique([firstname,lastname])
 }
 

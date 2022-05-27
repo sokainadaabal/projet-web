@@ -24,4 +24,7 @@ app.use('/category',categorieRouter);
 app.use('/post',postRouter);
 app.use('/comment',commentRouter);
 app.use('/auth',auth);
+
+/***  test for bilio faker */
+
 module.exports = app;

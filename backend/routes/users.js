@@ -70,7 +70,7 @@ router.post('/signin',async (req,res)=>{
     {
       expiresIn: "2h",
     });
-    loginUser.token=token
+    
     res.cookie("jwt", token, {
       httpOnly: true,
      
