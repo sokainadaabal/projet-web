@@ -1,0 +1,38 @@
+### Get all comment
+GET http://localhost:3000/comment/all
+Accept: application/json
+
+### Get all comment assoceited a post
+GET http://localhost:3000/comment/all/4
+Accept: application/json
+
+### Get Comment with parametre skip and take
+GET http://localhost:3000/comment/
+Accept: application/json
+
+### Get Comment by id
+GET http://localhost:3000/comment/3
+Accept: application/json
+
+### Delete ccmment
+DELETE http://localhost:3000/comment/3
+Accept: application/json
+
+### Create new comment
+POST http://localhost:3000/comment/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "postId":5,
+  "contenu":"الدعاااء هو الذي ينفع في هذه الحالات "
+}
+
+### Update a post
+PATCH  http://localhost:3000/comment/update HTTP/1.1
+Content-Type: application/json
+
+{
+  "postId":5,
+  "id":1,
+  "contenu":" //// الدعاااء هو الذي ينفع في هذه الحالات "
+}

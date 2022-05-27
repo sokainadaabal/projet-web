@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Insertion Language et Taille -->
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <link rel="stylesheet" href="./stylesheets/login.css">
+      <script
+        src="https://kit.fontawesome.com/64d58efce2.js"
+        crossorigin="anonymous"
+      ></script>
+       <!--Titre de la page -->
+      <title>login</title>
+
+      <!-- Design for my site web -->
+      <link rel="stylesheet" href="../public/stylesheets/style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-container">
+                <div class="singin-singup">
+                    <!-- ***************** Connection Form   *************************-->
+                    <form method="POST"  class="sign-in-form">
+                        <h2 class="title">Connection</h2>
+                        <div class="input-field">
+                           <i class="fas fa-user"></i>
+                           <input type="text" placeholder="Email"  name="email" required/>
+                        </div>
+                        <div class="input-field">
+                           <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Mot de Passe"  required/>
+                        </div>
+                        <input type="submit" value="Connecter" class="btn coonect" name="Connecter"/>
+                        <p class="social-text"> Ou Suivez nous sur Social media</p>
+                         <div class="social-media">
+                             <a href="#" class="social-icon">
+                                 <i class="fab fa-facebook-f"></i>
+                             </a>
+                             <a href="#" class="social-icon">
+                                <i class="fab fa-youtube"></i>
+                             </a>
+                             <a href="#" class="social-icon">
+                                <i class="fab fa-instagram"></i>
+                             </a>
+                         </div>
+                    </form>
+                     <!-- **************** Inscription  Form *************************-->
+                     <form method="POST"  class="sign-up-form">
+                        <h2 class="title">Inscription</h2>
+                        <div class="horizontal-group">
+                            <div class="input-field left">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="Nom"   name="nom" required/>
+                            </div>
+                            <div class="input-field right">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="Prénom"  name="prenom" required/>
+                            </div>    
+                        </div>
+                        <div class="input-field">
+                           <i class="fas fa-phone"></i>
+                           <input type="text" placeholder="Télèphone"  name="tel" required/>
+                        </div>
+                        <div class="input-field">
+                           <i class="fas fa-at"></i>
+                           <input type="text" placeholder="Adress Email"  name="email" required/>
+                        </div>
+                        <div class="horizontal-group">
+                            <div class="input-field left">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" placeholder="Adress"  name="adress" required/>
+                            </div>
+                            <div class="input-field right">
+                                <i class="fas fa-map-pin"></i>
+                                <input type="text" placeholder="Ville"  name="ville" required/>
+                            </div>
+                        </div>
+                        <div class="horizontal-group">
+                            <div class="input-field left">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" placeholder="Mot de Passe"  name="mot_passe" required/>
+                            </div>
+                            <div class="input-field right">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" placeholder="Confirmer Mot  Passe"  name="com_mot_passe" required/>
+                            </div>
+                        </div >
+                        <input type="submit" value="Inscriver" class="btn coonect" name="Inscriver"/>
+                        <p class="social-text"> Ou Suivez nous sur Social media</p>
+                         <div class="social-media">
+                             <a href="#" class="social-icon">
+                                 <i class="fab fa-facebook-f"></i>
+                             </a>
+                             <a href="#" class="social-icon">
+                                <i class="fab fa-youtube"></i>
+                             </a>
+                             <a href="#" class="social-icon">
+                                <i class="fab fa-instagram"></i>
+                             </a>
+                         </div>
+                    </form>
+                </div>
+            </div>
+            <div class="panels-container">
+             <div class="panel left-panel">
+                   <div class="content">
+                       <h3>Commander & Reserver </h3>
+                       <p>Pour commander un plat ou reserver une table ,il faut posséde un Compte chez nous.</p>
+                       <button class="btn transparent" id="sign-up-btn" name="Inscriver">Inscription</button>
+                    </div>
+               
+             </div>
+             <div class="panel right-panel">
+                   <div class="content">
+                       <h3> Vos Plats Seul Clique </h3>
+                       <p>Pour commander un plat ou reserver une table ,il faut Connecter a votre   Compte .</p>
+                       <button class="btn transparent" id="sign-in-btn">Connecter</button>
+                    </div>
+                
+             </div>
+            </div>
+        </div>
+        
+    </body>
+</html>
