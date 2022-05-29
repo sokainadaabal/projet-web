@@ -32,27 +32,40 @@ const categorys =[...Array(10)].map((Category)=>({
 async function main()
 {
     console.log("delete all data");
-    const comment = await prisma.comment.deleteMany();
-    const post= await prisma.post.deleteMany();
-    const categorie= await prisma.category.deleteMany();
-    const userde=await prisma.user.deleteMany();
+    await prisma.comment.deleteMany({});
+    await prisma.post.deleteMany({});
+    await prisma.category.deleteMany({});
+    await prisma.user.deleteMany({});
     console.log("Start seeding ....");
     for (let i=0;i<10;i++)
      {
+         // user
          const userSeed=await prisma.user.create({
              data:users[i]
          });
-         const categoryAdd =await prisma.category.create({
+         // categories
+         const categoryAdd = await prisma.category.create({
              data:categorys[i]
          })
          console.log("Created user with id"+ userSeed.id +"& category with id"+ categoryAdd.id )
      }
      for (let i=0;i<100;i++)
      {
-         const postsAdd=await prisma.post.create({
+        const postsAdd=await prisma.post.create({
              data:posts[i]
          });
-         for(let i=0;i<20;i++)
+        await prisma.post.update({
+            where:{id:postsAdd.id},
+            data:{
+                categories: {
+                    connect:[{id : faker.random.number({
+                            'min':1,
+                            'max':4
+                        })}]}
+            }
+        })
+         // creation comment
+         for(let i=0;i<Math.floor(Math.random() * 20 + 1);i++)
          {
              const comment =await prisma.comment.create({
                  data: 
@@ -66,6 +79,21 @@ async function main()
          console.log("Created post with id"+ postsAdd.id)
      }
      const adminSeed=await prisma.user.create({data:userAdmin})
+     for(let i=1;i<=10;i++)
+     {
+         await prisma.category.update({
+             where:{id:i},
+             data:{
+                posts: 
+                {connect:[
+                    {id : faker.random.number({
+                        'min':1,
+                        'max':100
+                    })}
+                ]}
+             }
+         })
+     }
      console.log("Created admin with id "+ adminSeed.id)
      console.log("seeding finished");
 }

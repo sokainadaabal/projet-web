@@ -17,14 +17,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 // les apis de notre site
-app.use('/', indexRouter);
+app.use('/',indexRouter);
 app.use('/users', usersRouter);
 app.use('/category',categorieRouter);
 app.use('/post',postRouter);
 app.use('/comment',commentRouter);
 app.use('/auth',auth);
-
-/***  test for bilio faker */
 
 module.exports = app;
