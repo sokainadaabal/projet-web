@@ -21,6 +21,7 @@
     "express-jwt": "^7.7.2",
     "express-session": "^1.17.3",
     "faker": "^5.5.3",
+    "jq-router": "^4.6.1",
     "jquery": "^3.6.0",
     "jqueryrouter": "^2.2.8",
     "jsonwebtoken": "^8.5.1",

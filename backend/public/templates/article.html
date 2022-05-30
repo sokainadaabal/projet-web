@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<section class="blog">
+    <div class="container">
+        <!-- article -->
+        <section class="about" id="about">
+            <div class="container">
+                <div class="about-content">
+                </div>
+            </div>
+        </section>
+        <!-- end of article-->
+    </div>
+</section>
+<script>
+    $(window).off('jqRouter.renderViewSuccess')
+        .on('jqRouter.renderViewSuccess', function (e, viewRoute, route, params) {
+            fetch('/post/' + params.article, {
+                headers: {
+                    'Accept': 'application/json',
+                },
+                method: 'GET'
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                $('.about-content').html('');
+                let element = '<div>' +
+                    '<img src = "' + data.photos + '?' + data.id + '" alt = "">' +
+                    '</div>' +
+                    '<div class = "about-text">' +
+                    '<div class = "title">' +
+                    '<h2>' + data.title + '</h2>' +
+                    '<p>' + data.content + '</p>' +
+                    '</div><div style="text-align:center"><button style="height:40px;width:40px;color: #fff;background: #2b2b2b;border-radius: 50px;padding: 0;cursor: pointer;transition: all 0.4s ease;"onclick="goToPrevious(' + data.id + ')"><i class="fas fa-arrow-left"></i></button>' +
+                    '<button style="height:30px;width:30px;margin-left:50px;color: #fff;background: #2b2b2b;border-radius: 50px;padding: 0;cursor: pointer;transition: all 0.4s ease;" onclick="goToNext(' + data.id + ')"><i class="fas fa-arrow-right"></i></button></div>';
+                $('.about-content').append(element);
+            });
+        });
+    $(window).off('jqRouter.viewDestroyed')
+        .on('jqRouter.viewDestroyed', function (e, viewRoute) {
+            $("#btnPrevious").off('click');
+            $("#btnNext").off('click');
+        })
+
+
+</script>

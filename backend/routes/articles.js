@@ -9,6 +9,8 @@ router.get("/all", async (req, res)=>
   const posts= await prisma.post.findMany({
     where:{
       published:true
+    },include:{
+      comments:true,
     }
   })
   res.json(posts); 
@@ -22,6 +24,9 @@ router.get("/",async (req,res)=>{
       take:take,
       where:{
         published:true
+      },
+      include:{
+        comments:true,
       }
   })
   if(postAll) res.json(postAll)
@@ -54,7 +59,9 @@ router.get("/:id",async (req, res)=> {
     const post = await prisma.post.findUnique({
       where:{
         id:Number(id),
-      },
+      },include:{
+        comments:true,
+      }
     });
     if(post==null) {
       res.status(400)
@@ -72,6 +79,8 @@ router.get("/titre/:titre",async (req, res)=> {
   const post = await prisma.post.findMany({
     where:{
       title:titre
+    },include:{
+      comments:true,
     }
   });
   if(post==null) {
@@ -103,6 +112,9 @@ router.patch("/update",auth, async (req, res) => {
 router.delete('/:id',auth,async (req,res)=>{
     const post = await prisma.post.findUnique({
       where:{id:Number(req.params.id)}
+      ,include:{
+        comments:true,
+      }
     });
     if(post == null)
     {

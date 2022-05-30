@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<div class="containerA">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="../images/login.jpg" alt=""/>
+      </div>
+      <div class="back">
+        <img class="backImg" src="../images/login.jpg" alt="">
+      </div>
+    </div>
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">Connecter</div>
+          <form action="#">
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="text" placeholder="Enter votre email" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Enter mon de passe" required>
+              </div>
+              <div class="button input-box">
+                <input type="submit" onclick="login()" value="Sumbit">
+              </div>
+              <div class="text sign-up-text">Vous Avez pas un Compte? <label for="flip">Inscrire</label></div>
+            </div>
+        </form>
+      </div>
+        <div class="signup-form">
+          <div class="title">Inscrire</div>
+        <form action="#">
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Enter votre nom" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Enter votre Prénom" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="text" placeholder="Enter votre email" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Enter mot de passe" required>
+              </div>
+              <div class="button input-box">
+                <input type="submit" value="Sumbit">
+              </div>
+              <div class="text sign-up-text">Vous avez un compte? <label for="flip">Connecter</label></div>
+            </div>
+      </form>
+    </div>
+    </div>
+    </div>
+  </div>

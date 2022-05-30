@@ -6,7 +6,9 @@ const auth=require("../middleware/auth");
 /* Obtenir tous les catégories */
 router.get("/all", async (req, res)=> 
 {
-  const categorys= await prisma.category.findMany()
+  const categorys= await prisma.category.findMany({ include: {
+    posts: true, 
+  }})
   res.json(categorys); 
 });
 router.get("/",async (req,res)=>{
@@ -15,7 +17,10 @@ router.get("/",async (req,res)=>{
     take = take || 10;
   const catAll= await prisma.category.findMany({
       skip:skip,
-      take:take
+      take:take,
+      include: {
+        posts: true,
+      }
   })
   if(catAll) res.json(catAll)
   else res.sendStatus(400)
@@ -65,7 +70,7 @@ router.patch("/update",auth, async (req, res) => {
 /* Suppression d'une catégorie */
 router.delete('/:id',auth,async (req,res)=>{
     const category = await prisma.category.findUnique({
-      where:{id:Number(req.params.id)}
+      where:{id:Number(req.params.id)},
     });
     if(category == null)
     {
