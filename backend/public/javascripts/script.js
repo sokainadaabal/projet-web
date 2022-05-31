@@ -1,3 +1,5 @@
+const { cookie } = require("express/lib/response");
+
 // signin &&  signup
 const sign_in_btn = document.querySelector("#sign-in-btn");
 const sign_up_btn = document.querySelector("#sign-up-btn");
@@ -11,8 +13,95 @@ sign_in_btn.addEventListener("click", () => {
   container.classList.remove("sign-up-mode");
 });
 function login() {
-
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  if (email.toString().trim() === '' || password.toString().trim() === '') {
+      Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Please fill in all the fields !',
+          showConfirmButton: false,
+          timer: 2000
+      })
+  } else {
+      const body = {
+          email: email,
+          password: password
+      }
+      fetch('/users/signin', {
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: JSON.stringify(body)
+      }).then(function (response) {
+          return response.json();
+      }).then(function (data) {
+          if (data.code === 1) {
+              Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Logged in successfully !',
+                  showConfirmButton: false,
+                  timer: 2000
+              }).then((result) => {
+                  let role = data.role;
+                  let token = data.token;
+                  let id = data.user.id;
+                  cookie.set('token', token);
+                  cookie.set('role', role);
+                  cookie.set('id', id);
+                  if (role === 'admin') {
+                    $('.navbar-nav').html('');
+                    let element = '<a>'+id+'</a>';
+                     $('.navbar-nav').append(element);
+                  } 
+                  else{
+                    $.router.go('about');
+                  }
+              });
+          } else {
+              Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: data.message,
+                  showConfirmButton: false,
+                  timer: 2000
+              })
+          }
+      });
+  }
 }
+/**Inscription de utilisateur */
+
+
+function signUp() {
+  let firstname = document.getElementById("firstname").value;
+  let lastname = document.getElementById("lastname").value;
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  const body = {
+          firstname: firstname,
+          lastname:lastname,
+          email: email,
+          password: password,
+      }
+      fetch('/users/signUpA', {
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjcsImVtYWlsIjoieS5jaGFiYWJAZ21haWwuY29tIiwiaWF0IjoxNjUzNjY1MDU4LCJleHAiOjE2NTM2NzIyNTh9.3WrywfmgBd71wg8T32NYI_lVLffOoYlSXOWQkUGDlc0'
+          },
+          method: 'POST',
+          body: JSON.stringify(body)
+      }).then(function (response) {
+          return response.json();
+      }).then(function (data) {
+         console.log(data)
+      });
+  }
+
 
 function getArticlesList() {
   fetch('/post', {

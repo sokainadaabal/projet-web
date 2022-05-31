@@ -9,6 +9,11 @@
             </div>
         </section>
         <!-- end of article-->
+        <!-- Contenedor Principal -->
+	<div class="comments-container">
+		<ul id="comments-list" class="comments-list">
+		</ul>
+	</div>
     </div>
 </section>
 <script>
@@ -33,6 +38,32 @@
                     '</div><div style="text-align:center"><button style="height:40px;width:40px;color: #fff;background: #2b2b2b;border-radius: 50px;padding: 0;cursor: pointer;transition: all 0.4s ease;"onclick="goToPrevious(' + data.id + ')"><i class="fas fa-arrow-left"></i></button>' +
                     '<button style="height:30px;width:30px;margin-left:50px;color: #fff;background: #2b2b2b;border-radius: 50px;padding: 0;cursor: pointer;transition: all 0.4s ease;" onclick="goToNext(' + data.id + ')"><i class="fas fa-arrow-right"></i></button></div>';
                 $('.about-content').append(element);
+            });
+            fetch('/comment/all/' + params.article, {
+                headers: {
+                    'Accept': 'application/json',
+                },
+                method: 'GET'
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                $('.comments-list').html('');
+                for (var i = 1; i <= data.length; i++) {
+                let element = '<li><div class="comment-main-level">'+
+					'<div class="comment-avatar"><img src="https://cdn.pixabay.com/photo/2018/09/14/23/28/avatar-3678347_960_720.png" alt=""></div>'+
+					'<div class="comment-box">'+
+					   '<div class="comment-head">'+
+							'<h6 class="comment-name"><a href="http://creaticode.com/blog">'+data[i].email+'</a></h6>'+
+							'<span>hace 10 minutos</span>'+
+							'<i class="fa fa-reply"></i>'+
+							'<i class="fa fa-heart"></i>'+
+						'</div>'+
+						'<div class="comment-content">'+
+							data[i].contenu+
+						'</div>'+
+					'</div></div><div></li>';
+                    $('.comments-list').append(element);
+                    }
             });
         });
     $(window).off('jqRouter.viewDestroyed')
