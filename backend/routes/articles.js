@@ -16,9 +16,8 @@ router.get("/all", async (req, res)=>
   res.json(posts); 
 });
 router.get("/",async (req,res)=>{
-  let { skip, take } = req.query;
-    skip = skip || 1;
-    take = take || 10;
+    skip = parseInt(req.query.skip) || 1;
+    take = parseInt(req.query.take) || 10;
   const postAll= await prisma.post.findMany({
       skip:skip,
       take:take,

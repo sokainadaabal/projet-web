@@ -12,51 +12,54 @@
     <div class="forms">
         <div class="form-content">
           <div class="login-form">
-            <div class="title">Connecter</div>
+            <div class="title">Login</div>
           <form action="#">
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Enter votre email"  id="email" required>
+                <input type="text" placeholder="Email"  id="email" required>
               </div>
               <div class="input-box">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter mon de passe"  id="password" required>
+                <input type="password" placeholder="Password"  id="password" required>
               </div>
               <div class="button input-box">
-                <input type="submit" onclick="login()" value="Sumbit">
+                <input type="submit" id="loginBtn"  value="Login">
               </div>
-              <div class="text sign-up-text">Vous Avez pas un Compte? <label for="flip">Inscrire</label></div>
+              <div class="text sign-up-text">Not a Author? <label for="flip">SingUp Now</label></div>
             </div>
         </form>
       </div>
         <div class="signup-form">
-          <div class="title">Inscrire</div>
+          <div class="title">SingUp</div>
         <form action="#">
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Enter votre nom" id="firstname" required>
+                <input type="text" placeholder="FirstName" id="firstname" required>
               </div>
               <div class="input-box">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Enter votre Prénom" id="lastname" required>
+                <input type="text" placeholder="LastName" id="lastname" required>
               </div>
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
-                <input type="text" id="email" placeholder="Enter votre email"   required>
+                <input type="text" id="emailinsc" placeholder="Email"   required>
               </div>
               <div class="input-box">
                 <i class="fas fa-lock"></i>
-                <input type="password" id="password" placeholder="Enter mot de passe" required>
+                <input type="password" id="passwordinsc" placeholder="Password" required>
               </div>
               <div class="button input-box">
                 <input type="submit" onclick="signUp()" value="Sumbit">
               </div>
-              <div class="text sign-up-text">Vous avez un compte? <label for="flip">Connecter</label></div>
+              <div class="text sign-up-text">Have an account? <label for="flip">Login In</label></div>
             </div>
       </form>
     </div>
     </div>
     </div>
   </div>
+  <script>
+      login().then(pushToTemplateLogin).then(otherThings).catch(console.error);
+  </script>

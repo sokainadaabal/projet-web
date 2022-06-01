@@ -23,6 +23,7 @@
     "faker": "^5.5.3",
     "jq-router": "^4.6.1",
     "jquery": "^3.6.0",
+    "jquery.cookie": "^1.4.1",
     "jqueryrouter": "^2.2.8",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",

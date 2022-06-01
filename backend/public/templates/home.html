@@ -21,7 +21,7 @@
             <div class="articles blog-content"></div>
         </div>
         <div class="title">
-            <h2>Catégorie</h2>
+            <h2>Category</h2>
         </div>
         <div class="blog-content2">
             <div class="article blog-content" style="margin: 1rem 0;"></div>
@@ -29,6 +29,9 @@
     </div>
 </section>
 <script>
-    getArticlesList();
-    getCategorie();
+    $(document).ready( () => 
+    {
+        getArticles(20,0).then(pushToTemplateArticle).then(otherThings).catch(console.error);
+        getCategorie().then(pushToTemplateCategorie).then(otherThings).catch(console.error)
+     });
 </script>

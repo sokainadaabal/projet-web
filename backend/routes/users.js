@@ -75,7 +75,7 @@ router.post('/signin',async (req,res)=>{
       httpOnly: true,
      
     });
-    res.send(JSON.stringify({"status": 200, "error": null, "token": token,"user":loginUser.id}));
+    res.send({token,loginUser});
    }
  
 });
@@ -109,6 +109,11 @@ router.post('/signup',async(req,res)=>{
     res.send("Erreur user not adding")
   }
 });
+router.get('/logout',async(req,res)=>{
+  var user = {email: request.body.email, password: request.body.password };  
+  var token = jwt.sign(user, 'My Super Secret', {expiresInMinutes: 60});
+  response.json({token: token});
+})
 /* Inscription d'un utilisateur  Admin*/
 router.post('/signUpA',async(req,res)=>{
   const {email,firstname,lastname,password}=req.body

@@ -1,6 +1,5 @@
-const { cookie } = require("express/lib/response");
-
-// signin &&  signup
+/* Animation */
+  // signin &&  signup
 const sign_in_btn = document.querySelector("#sign-in-btn");
 const sign_up_btn = document.querySelector("#sign-up-btn");
 const container = document.querySelector(".container");
@@ -8,74 +7,132 @@ const container = document.querySelector(".container");
 sign_up_btn.addEventListener("click", () => {
   container.classList.add("sign-up-mode");
 });
-
 sign_in_btn.addEventListener("click", () => {
   container.classList.remove("sign-up-mode");
 });
-function login() {
-  let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
-  if (email.toString().trim() === '' || password.toString().trim() === '') {
-      Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: 'Please fill in all the fields !',
-          showConfirmButton: false,
-          timer: 2000
-      })
-  } else {
-      const body = {
-          email: email,
-          password: password
-      }
-      fetch('/users/signin', {
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-          },
-          method: 'POST',
-          body: JSON.stringify(body)
-      }).then(function (response) {
-          return response.json();
-      }).then(function (data) {
-          if (data.code === 1) {
-              Swal.fire({
-                  position: 'center',
-                  icon: 'success',
-                  title: 'Logged in successfully !',
-                  showConfirmButton: false,
-                  timer: 2000
-              }).then((result) => {
-                  let role = data.role;
-                  let token = data.token;
-                  let id = data.user.id;
-                  cookie.set('token', token);
-                  cookie.set('role', role);
-                  cookie.set('id', id);
-                  if (role === 'admin') {
-                    $('.navbar-nav').html('');
-                    let element = '<a>'+id+'</a>';
-                     $('.navbar-nav').append(element);
-                  } 
-                  else{
-                    $.router.go('about');
-                  }
-              });
-          } else {
-              Swal.fire({
-                  position: 'center',
-                  icon: 'error',
-                  title: data.message,
-                  showConfirmButton: false,
-                  timer: 2000
-              })
-          }
-      });
+/* Function of a SPA */
+function pushToTemplateArticle(data) {
+  $('.blog-content').html('');
+  for (var i = 1; i <= data.length + 1; i++) {
+    let element = '<div class="blog-item">' +
+      '<div class="blog-img">' +
+      '<img src="' + data[i].photos + '?' + data[i].id + '"/>' +
+      '<span><i class = "far fa-heart"></i></span>' +
+      '</div>' +
+      '<div class="blog-text">' +
+      '<span>' + data[i].createdAt + '</span>' +
+      '<h2>' + data[i].title + '</h2>' +
+      '<p>' + data[i].content.substring(data[i].content.length, 50) + '   . . . .  </p>' +
+      '<a  onclick="getArticlesId(' + data[i].id + ')">Read More</a>' +
+      '</div></div>';
+    $('.blog-content').append(element);
   }
 }
+function pushToTemplateCategorie(data) {
+  $('.article').html('');
+    for (var i = 1; i <= data.length ; i++) {
+      let element = '<div class="blog-item" style="margin:5px;">' +
+                       '<div class="blog-text" style="margin:0px;">' +
+                          '<a >' + data[i].name +' | '+data[i].posts.length+'</al>' +
+                        '</div>'
+                    '</div>';
+    $('.article').append(element);
+    }
+}
+function pushToTemplateLogin(data)
+{         
+  localStorage.setItem('token',data.token);
+  localStorage.setItem('role',data.loginUser.role);
+  localStorage.setItem('firstName',data.loginUser.firstname);
+  localStorage.setItem('lastName',data.loginUser.lastname);
+  localStorage.setItem('id',data.loginUser.id);
+  localStorage.setItem('email',data.loginUser.email);
+  $.router.go('home');
+}
+function otherThings(data) {
+  console.log("otherThings with your data")
+  console.log(data)
+}
+/* Router All Categorie*/
+function getCategorie() {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: "http://localhost:3000/category/all",
+      type: 'GET',
+      success: function (data) {
+        resolve(data)
+      },
+      error: function (error) {
+        reject(error)
+      },
+    })
+  })
+}
+/* Router Article */
+function getArticles(take = 10, skip = 1) {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: "http://localhost:3000/post",
+      type: 'GET',
+      data: {
+        skip: skip,
+        take: take
+    },
+      success: function (data) {
+        resolve(data)
+      },
+      error: function (error) {
+        reject(error)
+      },
+    })
+  })
+}
+
+
+
+
+
+ function login() {
+  return new Promise((resolve, reject) => {
+    $("#loginBtn").on("click", function(event) {
+      event.preventDefault();
+      let email =document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      const body ={email: email, password: password}
+      $.ajax({
+          url: "http://localhost:3000/users/signin",
+          method: "POST",
+          data: body,
+          success: function (data) {
+            resolve(data)
+          },
+          error: function (error) {
+              reject(error)
+          },
+      })
+  })})}
+function logout()
+{
+     localStorage.removeItem('token');
+     localStorage.removeItem('role');
+     localStorage.removeItem('firstName');
+     localStorage.removeItem('lastName');
+     localStorage.removeItem('id');
+     localStorage.removeItem('email');
+     return new Promise((resolve, reject) => {
+      $.ajax({
+        url: "http://localhost:3000/logout",
+        type: 'GET',
+        success: function (data) {
+          resolve(data)
+        },
+        error: function (error) {
+          reject(error)
+        },
+      })
+    })
+}
 /**Inscription de utilisateur */
-
-
 function signUp() {
   let firstname = document.getElementById("firstname").value;
   let lastname = document.getElementById("lastname").value;
@@ -102,57 +159,7 @@ function signUp() {
       });
   }
 
-
-function getArticlesList() {
-  fetch('/post', {
-    headers: {
-      'Accept': 'application/json',
-    },
-    method: 'GET'
-  }).then(function (response) {
-    return response.json();
-  }).then(function (data) {
-    $('.blog-content').html('');
-    for (var i = 1; i <= data.length + 1; i++) {
-      let element = '<div class="blog-item">' +
-        '<div class="blog-img">' +
-        '<img src="' + data[i].photos + '?' + data[i].id + '"/>' +
-        '<span><i class = "far fa-heart"></i></span>' +
-        '</div>' +
-        '<div class="blog-text">' +
-        '<span>' + data[i].createdAt + '</span>' +
-        '<h2>' + data[i].title + '</h2>' +
-        '<p>' + data[i].content.substring(data[i].content.length, 50) + '   . . . .  </p>' +
-        '<a  onclick="getArticlesId(' + data[i].id + ')">Read More</a>' +
-        '</div>'
-
-      '</div>';
-      $('.blog-content').append(element);
-    }
-  });
-}
-
-function getCategorie()
-{
-  fetch('/category/all', {
-    headers: {
-      'Accept': 'application/json',
-    },
-    method: 'GET'
-  }).then(function (response) {
-    return response.json();
-  }).then(function (data) {
-    $('.article').html('');
-    for (var i = 1; i <= data.length; i++) {
-      let element = '<div class="blog-item" style="margin:5px;">' +
-                       '<div class="blog-text" style="margin:0px;">' +
-                          '<a >' + data[i].name +' | '+data[i].posts.length+'</al>' +
-                        '</div>'
-                    '</div>';
-             $('.article').append(element);
-    }
-  });
-}
+/* Get an article  by id */
 function getArticlesId(params) {
   $.router.go('article', { article: parseInt(params) });
 }
