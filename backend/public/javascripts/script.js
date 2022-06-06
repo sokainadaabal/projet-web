@@ -1,16 +1,6 @@
-/* Animation */
-  // signin &&  signup
-const sign_in_btn = document.querySelector("#sign-in-btn");
-const sign_up_btn = document.querySelector("#sign-up-btn");
-const container = document.querySelector(".container");
 
-sign_up_btn.addEventListener("click", () => {
-  container.classList.add("sign-up-mode");
-});
-sign_in_btn.addEventListener("click", () => {
-  container.classList.remove("sign-up-mode");
-});
 /* Function of a SPA */
+/* Template to push in spa */
 function pushToTemplateArticle(data) {
   $('.blog-content').html('');
   for (var i = 1; i <= data.length + 1; i++) {
@@ -26,6 +16,40 @@ function pushToTemplateArticle(data) {
       '<a  onclick="getArticlesId(' + data[i].id + ')">Read More</a>' +
       '</div></div>';
     $('.blog-content').append(element);
+  }
+}
+function pushToTemplateArticleList(data) {
+  $('.table__row1').html('');
+  for (var i =0; i <= data.length; i++) {
+    let element = '<tr>' +
+      '<td>' +
+       data[i].title+ '</td>'+
+      '<td >' + data[i].content.substring(data[i].content.length, 50) +
+      '</td>' +
+      '<td ><img style="margin-top=10;"src="' + data[i].photos + '?' + data[i].id +
+      '"></td>' +
+      '<td style="display: flex;text-align:center;color:#A5BECC"><i class="fas fa-pencil-alt" style="color:#243A73;margin-right:10px;" ></i><i class="fas fa-trash" ></i>'+
+      '</td>'
+      '</tr>';
+    $('.table__row1').append(element);
+  }
+}
+function pushToTemplateUserList(data) {
+  $('.table__row1').html('');
+  for (var i =0; i <= data.length; i++) {
+    let element = '<tr>' +
+      '<td>' +
+       data[i].email+ '</td>'+
+      '<td >' + data[i].firstname+
+      '</td>' +
+      '<td >' + data[i].lastname +
+      '</td>' +
+      '<td >' + data[i].role +
+      '</td>' +
+      '<td style="display: flex;text-align:center;color:#A5BECC"><i class="fas fa-pencil-alt" style="color:#243A73;margin-right:10px;" ></i><i class="fas fa-trash" ></i>'+
+      '</td>'
+      '</tr>';
+    $('.table__row1').append(element);
   }
 }
 function pushToTemplateCategorie(data) {
@@ -57,7 +81,7 @@ function otherThings(data) {
 function getCategorie() {
   return new Promise((resolve, reject) => {
     $.ajax({
-      url: "http://localhost:3000/category/all",
+      url: "http://127.0.0.1:3000/category/all",
       type: 'GET',
       success: function (data) {
         resolve(data)
@@ -72,7 +96,7 @@ function getCategorie() {
 function getArticles(take = 10, skip = 1) {
   return new Promise((resolve, reject) => {
     $.ajax({
-      url: "http://localhost:3000/post",
+      url: "http://127.0.0.1:3000/post",
       type: 'GET',
       data: {
         skip: skip,
@@ -87,12 +111,38 @@ function getArticles(take = 10, skip = 1) {
     })
   })
 }
-
-
-
-
-
- function login() {
+/* Router List Article */
+function getArticlesList() {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: "http://127.0.0.1:3000/post/author/1",
+      type: 'GET',
+      success: function (data) {
+        resolve(data)
+      },
+      error: function (error) {
+        reject(error)
+      },
+    })
+  })
+}
+/** Router List of user */
+function getUserList() {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: "http://127.0.0.1:3000/users/all/author",
+      type: 'GET',
+      success: function (data) {
+        resolve(data)
+      },
+      error: function (error) {
+        reject(error)
+      },
+    })
+  })
+}
+/* Login */
+function login() {
   return new Promise((resolve, reject) => {
     $("#loginBtn").on("click", function(event) {
       event.preventDefault();
@@ -100,7 +150,7 @@ function getArticles(take = 10, skip = 1) {
       let password = document.getElementById("password").value;
       const body ={email: email, password: password}
       $.ajax({
-          url: "http://localhost:3000/users/signin",
+          url: "http://127.0.0.1:3000/users/signin",
           method: "POST",
           data: body,
           success: function (data) {
@@ -121,8 +171,8 @@ function logout()
      localStorage.removeItem('email');
      return new Promise((resolve, reject) => {
       $.ajax({
-        url: "http://localhost:3000/logout",
-        type: 'GET',
+        url: "http://127.0.0.1:3000/logout",
+        type: 'POST',
         success: function (data) {
           resolve(data)
         },
@@ -169,3 +219,15 @@ function goToPrevious(params) {
 function goToNext(params) {
   $.router.go('article', { article: parseInt(params) + 1 });
 }
+  // signin &&  signup
+  const sign_in_btn = document.querySelector("#sign-in-btn");
+  const sign_up_btn = document.querySelector("#sign-up-btn");
+  const container = document.querySelector(".container");
+  
+  /* Animation */
+  sign_up_btn.addEventListener("click", () => {
+    container.classList.add("sign-up-mode");
+  });
+  sign_in_btn.addEventListener("click", () => {
+    container.classList.remove("sign-up-mode");
+  });

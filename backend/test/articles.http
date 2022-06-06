@@ -33,6 +33,9 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjcsImVtYWlsIjoieS5
 GET http://localhost:3000/post/titre/comment%20%20valider
 Accept: application/json
 
+### Get post by author
+GET http://localhost:3000/post/author/1
+Accept: application/json
 
 ### Delete post
 DELETE http://localhost:3000/post/6

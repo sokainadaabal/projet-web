@@ -8,6 +8,7 @@ const auth=require("../middleware/auth");
 const bcrypt = require('bcrypt')
 const jwt  = require('jsonwebtoken')
 const _  = require('lodash');
+const { token } = require("morgan");
 
 /* obtenir tous les utilisateurs */
 /*authors */
@@ -109,11 +110,7 @@ router.post('/signup',async(req,res)=>{
     res.send("Erreur user not adding")
   }
 });
-router.get('/logout',async(req,res)=>{
-  var user = {email: request.body.email, password: request.body.password };  
-  var token = jwt.sign(user, 'My Super Secret', {expiresInMinutes: 60});
-  response.json({token: token});
-})
+
 /* Inscription d'un utilisateur  Admin*/
 router.post('/signUpA',async(req,res)=>{
   const {email,firstname,lastname,password}=req.body
@@ -241,4 +238,8 @@ router.delete('/:id',async (req,res)=>{
      res.send("vous avez pas le droit de supprimer ce compte");
   }
 })
+// logout
+router.post('/logout', async (req, res) => {
+  jwt.sign();
+});
 module.exports = router;

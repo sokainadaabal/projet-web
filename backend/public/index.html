@@ -42,7 +42,7 @@
     <!-- end of footer -->
     <script type="text/javascript" src="javascripts/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="javascripts/jq-router.js"></script>
-    <script type="text/javascript" src="../javascripts/script.js"></script>
+    <script type="text/javascript" src="javascripts/script.js"></script>
     <script type="text/javascript">
         var routes = {},
             defaultRoute = 'home';
@@ -63,46 +63,49 @@
             url: '#article/:article',
             templateUrl: 'templates/article.html'
         };
+        routes['user'] = {
+            url: '#user',
+            templateUrl: 'templates/userList.html'
+        };
         routes['admin'] = {
             url: '#admin',
             templateUrl: 'templates/admin.html'
+        };
+        routes['listArticle'] = {
+            url: '#listArticle',
+            templateUrl: 'templates/listArticle.html'
         };
         $.router
             .setData(routes)
             .setDefault(defaultRoute);
         $.when($.ready)
             .then(function () {
-            $.router.run('.my-view', 'home');
-            if(localStorage.getItem('role')=="AUTHOR")
+            if(localStorage.getItem('role')==="AUTHOR")
             {
                 $('.navbar-nav').html('');         
                 let element = '<a href="#home">Home</a>'+
-                              '<a href="#post">Post</a>'+
-                               '<a href="#about">About</a>'+
+                              '<a href="#listArticle">Post</a>'+
                                '<a id="demo">'+localStorage.getItem('firstName')+'</a>'+
                                '<a onclick="logout()">Logout</a>';
                 $('.navbar-nav').append(element);
             }
-            if(localStorage.getItem('role')=="ADMIN")
+            if(localStorage.getItem('role')==="ADMIN")
             {
                 $('.navbar-nav').html('');         
                 let element = '<a href="#home">Home</a>'+
-                              '<a href="#post">Post</a>'+
-                              '<a href="#post">User</a>'+
-                              '<a href="#about">About</a>'+
+                              '<a href="#user">User</a>'+
                               '<a id="demo">'+localStorage.getItem('firstName')+'</a>'+
                               '<a  onclick="logout()">Logout</a>';
                 $('.navbar-nav').append(element);
             }
-            else if (localStorage.getItem('role')===null){
+            else if(localStorage.length<=0){
                 $('.navbar-nav').html('');         
                 let element = '<a href="#home">Home</a>'+
-                              '<a href="#post">Post</a>'+
-                              '<a href="#post">User</a>'+
                               '<a href="#about">About</a>'+
                               '<a href="#login">Login</a>';
                 $('.navbar-nav').append(element);
             }
+            $.router.run('.my-view', 'home');
             });
     </script>
 </body>

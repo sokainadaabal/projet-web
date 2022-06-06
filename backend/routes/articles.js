@@ -52,6 +52,26 @@ router.post('/',auth,async(req,res)=>{
       res.send("Erreur Ce Post existe déja")
     }
   })
+/**Recherche d'un post avec author */
+router.get("/author/:id",async (req, res)=> {
+  const {id}=req.params
+  const post = await prisma.post.findMany({
+    where:{
+      autorId:Number(id),
+    },include:{
+      comments:true,
+    }
+  });
+  if(post==null) {
+    res.status(400)
+    res.send("n'est pas existée")
+  }
+  else
+  {
+    res.status(200)
+    res.json(post)
+  }
+});
 /* Recherche d'un Post  avec id*/
 router.get("/:id",async (req, res)=> {
     const {id}=req.params

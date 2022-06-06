@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<div class="banner">
+    <div class="container">
+        <h2 class="banner-title">All User</h2>
+        <form>
+            <input type="texte" class="search-input" placeholder="Search User . . .">
+            <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+</div>
+<div style="text-align: end; margin-top:20px; margin-right:20px;">
+    <a href="#" class="button" style="background-color: #313231;border: none; color: white;border-radius: 30px ;padding: 15px 32px;
+text-align:center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;">Add
+        New</a>
+</div>
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="table__row1">
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(() => {
+        getUserList().then(pushToTemplateUserList).then(otherThings).catch(console.error);
+
+    });
+</script>
