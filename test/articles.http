@@ -1,9 +1,11 @@
 ### Get all post
 GET http://localhost:3000/post/all/
 Accept: application/json
+
 ### Get post with parametre skip and take
 GET http://localhost:3000/post/
 Accept: application/json
+
 ### Get post by id
 GET http://localhost:3000/post/3
 Accept: application/json
@@ -11,7 +13,6 @@ Accept: application/json
 ### Get post by title
 GET http://localhost:3000/post/titre/comment%20%20valider
 Accept: application/json
-
 
 ### Delete post
 DELETE http://localhost:3000/post/2
