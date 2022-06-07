@@ -1,6 +1,5 @@
 # projet-web
 Projet de fin de Module 
 
-1# commencer le projet le 11/05/2022.
-   Les étapes du projet
-
+vous trouez le rapport de ce projet sur ce lien :
+https://docs.google.com/document/d/1UIIctjFJHNEfML2REwBKeRPqLkg_EUu-sv4mw3u8ZU8/edit?usp=sharing
